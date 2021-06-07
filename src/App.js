@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [guessHistory, setGuessHistory] = useState({})
@@ -9,6 +9,36 @@ function App() {
   const [loc2, setLoc2] = useState("grey")
   const [loc3, setLoc3] = useState("grey")
   const [loc4, setLoc4] = useState("grey")
+  const [solution, setSolution] = useState({})
+
+  const generateSolution = () => {
+    let solutionObject = {}
+    for(let i = 1; i < 5; i++){
+      let randColorNum = Math.floor(Math.random()*6 + 1)
+        switch(randColorNum){
+          case 1:
+            solutionObject[i] = "r"
+            break;
+          case 2: 
+            solutionObject[i] = "b"
+            break;
+          case 3:
+            solutionObject[i] = "g"
+            break;
+          case 4:
+            solutionObject[i] = "y"
+            break;
+          case 5:
+            //using x for black
+            solutionObject[i] = "x"
+            break;
+          case 6:
+            solutionObject[i] = "w"
+            break;
+        }
+    }
+    console.log(solutionObject)
+  }
   const guesses = () => {
     return(
       <>
@@ -26,8 +56,11 @@ function App() {
     )
   }
   const addGuess = () =>{
-
+    // if guessCount === 10 {
+    //   //last guess
+    // }
   }
+  
 
   const cycleColor = (location) => {
     let currentColor = ""
@@ -71,8 +104,8 @@ function App() {
       setLoc2(newColor)
     }else if(location === 3){
       setLoc3(newColor)
-      }else{
-    setLoc4(newColor)
+    }else{
+      setLoc4(newColor)
     }
   }
 
@@ -84,6 +117,10 @@ function App() {
           <span style={{backgroundColor: loc4}} onClick={() => cycleColor(4)} className="dot"></span>
         </>)
   }
+
+  useEffect(() => {
+    generateSolution()
+  }, []);
 
   return (
     <div className="App">
