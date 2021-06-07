@@ -29,3 +29,22 @@
   display: inline-block;
   margin-left: 10px;
 }
+
+.dotred{
+  background-color: red;
+}
+.dotblue{
+  background-color: blue;
+}
+.dotblack{
+  background-color: black;
+}
+.dotwhite{
+  background-color: white;
+}
+.dotyellow{
+  background-color: yellow;
+}
+.dotgreen{
+  background-color: green;
+}
