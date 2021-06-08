@@ -48,3 +48,8 @@
 .dotgreen{
   background-color: green;
 }
+
+.pastguesses{
+  height: 70%;
+  border: black, 1px, solid;
+}

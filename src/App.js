@@ -42,20 +42,8 @@ function App() {
     setSolution(solutionObject)
   }
   const guesses = () => {
-    return(
-      <>
-      <div className="g10"></div>
-      <div className="g9"></div>
-      <div className="g8"></div>
-      <div className="g7"></div>
-      <div className="g6"></div>
-      <div className="g5"></div>
-      <div className="g4"></div>
-      <div className="g3"></div>
-      <div className="g2"></div>
-      <div className="g1"></div>
-      </>
-    )
+
+
   }
 
   const addGuess = (guess) =>{
@@ -167,8 +155,18 @@ function App() {
       <header className="App-header">
       <div className="main">
         <h2>Mastermind!</h2>
-        {guesses()}
-
+        <div className="pastguesses">
+        {guessHistory.map(hist => {
+        return(
+          <div>
+          <span style={{backgroundColor: hist.l1}} className="dot"></span>
+          <span style={{backgroundColor: hist.l2}} className="dot"></span>
+          <span style={{backgroundColor: hist.l3}} className="dot"></span>
+          <span style={{backgroundColor: hist.l4}} className="dot"></span>
+          </div>
+        )
+      })}
+        </div>
       <div className="guess">
         {currentGuess()}
         <button onClick={() => addGuess({l1: loc1, l2: loc2, l3:loc3, l4:loc4})}>Submit</button>
