@@ -12,32 +12,34 @@ function App() {
   const [solution, setSolution] = useState({})
 
   const generateSolution = () => {
+    //takes a random number and translates the number into a preassigned value. 
+    // A total of four random values are selected and the solution is generated.
     let solutionObject = {}
     for(let i = 1; i < 5; i++){
       let randColorNum = Math.floor(Math.random()*6 + 1)
         switch(randColorNum){
           case 1:
-            solutionObject[i] = "r"
+            solutionObject['l'+i] = "red"
             break;
           case 2: 
-            solutionObject[i] = "b"
+            solutionObject['l'+i] = "blue"
             break;
           case 3:
-            solutionObject[i] = "g"
+            solutionObject['l'+i] = "green"
             break;
           case 4:
-            solutionObject[i] = "y"
+            solutionObject['l'+i] = "yellow"
             break;
           case 5:
-            //using x for black
-            solutionObject[i] = "x"
+            solutionObject['l'+i] = "black"
             break;
           case 6:
-            solutionObject[i] = "w"
+            solutionObject['l'+i] = "white"
             break;
         }
     }
     console.log(solutionObject)
+    setSolution(solutionObject)
   }
   const guesses = () => {
     return(
@@ -55,10 +57,40 @@ function App() {
       </>
     )
   }
-  const addGuess = () =>{
-    // if guessCount === 10 {
-    //   //last guess
-    // }
+
+  const addGuess = (guess) =>{
+    //extract the values from guess and solution
+    console.log("guess", guess)
+    let guessArray = Object.values(guess)
+    let solutionArray = Object.values(solution)
+    let whitepegs = 0
+    //combine values into a single array with duplicates
+    for(let i=0; i < solutionArray.length; i++){
+      for (let j=3; j> -1;j--){
+        console.log(solutionArray[i])
+        console.log(guessArray[j])
+        if(solutionArray[i] === guessArray[j]){
+          whitepegs += 1
+          break
+        }
+      }
+    }
+    console.log(whitepegs)
+    //determine black pegs
+    let blackpegs = 0
+    if(solution.l1 === guess.l1){
+      blackpegs += 1
+    }
+    if(solution.l2 === guess.l2){
+      blackpegs += 1
+    }
+    if(solution.l3 === guess.l3){
+      blackpegs += 1
+    }
+    if(solution.l4 === guess.l4){
+      blackpegs += 1
+    }
+    console.log("black", blackpegs, "white", whitepegs - blackpegs)
   }
   
 
@@ -131,7 +163,7 @@ function App() {
 
       <div className="guess">
         {currentGuess()}
-        <button onClick={() => addGuess()}>Submit</button>
+        <button onClick={() => addGuess({l1: loc1, l2: loc2, l3:loc3, l4:loc4})}>Submit</button>
       </div>
       </div>
       </header>
