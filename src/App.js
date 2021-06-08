@@ -66,8 +66,9 @@ function App() {
     let whitepegs = 0
     //combine values into a single array with duplicates
     for(let i=0; i < solutionArray.length; i++){
-      for (let j=3; j> -1;j--){
+      for (let j=guessArray.length; j> -1;j--){
         if(solutionArray[i] === guessArray[j]){
+          guessArray.splice(j,1)
           whitepegs += 1
           break
         }
