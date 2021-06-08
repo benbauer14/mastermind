@@ -3,7 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [guessHistory, setGuessHistory] = useState({})
+  const [guessHistory, setGuessHistory] = useState([])
   const [guessCount, setGuessCount] = useState(0)
   const [loc1, setLoc1] = useState("blue")
   const [loc2, setLoc2] = useState("grey")
@@ -67,8 +67,6 @@ function App() {
     //combine values into a single array with duplicates
     for(let i=0; i < solutionArray.length; i++){
       for (let j=3; j> -1;j--){
-        console.log(solutionArray[i])
-        console.log(guessArray[j])
         if(solutionArray[i] === guessArray[j]){
           whitepegs += 1
           break
@@ -91,6 +89,15 @@ function App() {
       blackpegs += 1
     }
     console.log("black", blackpegs, "white", whitepegs - blackpegs)
+    setGuessCount(guessCount +1)
+    let history = guessHistory
+    //add blackpeg and whitepeg count to guess
+    let guesswithright = guess
+    guesswithright['blackpeg'] = blackpegs
+    guesswithright['whitepeg'] = whitepegs - blackpegs
+    history.push(guesswithright)
+    setGuessHistory(history)
+    console.log(guessHistory)
   }
   
 
@@ -115,7 +122,7 @@ function App() {
         }
       }
     }
-    if(currentColor === ""){
+    if(currentColor === "grey"){
       newColor = "red"
     }else if(currentColor === "red"){
       newColor = "blue"
