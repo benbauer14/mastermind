@@ -158,11 +158,19 @@ function App() {
         <div className="pastguesses">
         {guessHistory.map(hist => {
         return(
-          <div>
-          <span style={{backgroundColor: hist.l1}} className="dot"></span>
-          <span style={{backgroundColor: hist.l2}} className="dot"></span>
-          <span style={{backgroundColor: hist.l3}} className="dot"></span>
-          <span style={{backgroundColor: hist.l4}} className="dot"></span>
+          <div className="guesseshistory">
+            <div className="colors">
+              <span style={{backgroundColor: hist.l1}} className="dot"></span>
+              <span style={{backgroundColor: hist.l2}} className="dot"></span>
+              <span style={{backgroundColor: hist.l3}} className="dot"></span>
+              <span style={{backgroundColor: hist.l4}} className="dot"></span>
+            </div>
+            <div className="bandw">
+              <span style={{backgroundColor: "black"}} className="smalldot"></span>
+              <span style={{backgroundColor: "black"}} className="smalldot"></span>
+              <span style={{backgroundColor: "black"}} className="smalldot"></span>
+              <span style={{backgroundColor: "black"}} className="smalldot"></span>
+            </div>
           </div>
         )
       })}
