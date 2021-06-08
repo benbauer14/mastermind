@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 
 function App() {
   const [guessHistory, setGuessHistory] = useState([])
   const [guessCount, setGuessCount] = useState(0)
-  const [loc1, setLoc1] = useState("blue")
+  const [loc1, setLoc1] = useState("grey")
   const [loc2, setLoc2] = useState("grey")
   const [loc3, setLoc3] = useState("grey")
   const [loc4, setLoc4] = useState("grey")
@@ -157,6 +156,25 @@ function App() {
         <h2>Mastermind!</h2>
         <div className="pastguesses">
         {guessHistory.map(hist => {
+          let bandw = {}
+          let bandwcount = 1
+          console.log(hist.blackpeg, hist.whitepeg)
+          for(let i=0; i<hist.blackpeg; i++){
+            bandw['p' + bandwcount] = 'black'
+            bandwcount = bandwcount + 1
+          }
+          console.log(bandw)
+          for(let i=0; i<hist.whitepeg; i++){
+            bandw['p' + bandwcount] = 'white'
+            bandwcount += 1
+          }
+          console.log(bandw)
+          for(let i=bandwcount; i<5; i++){
+            bandw['p' + bandwcount] = 'brown'
+            bandwcount += 1
+          }
+          console.log(bandw)
+
         return(
           <div className="guesseshistory">
             <div className="colors">
@@ -166,10 +184,10 @@ function App() {
               <span style={{backgroundColor: hist.l4}} className="dot"></span>
             </div>
             <div className="bandw">
-              <span style={{backgroundColor: "black"}} className="smalldot"></span>
-              <span style={{backgroundColor: "black"}} className="smalldot"></span>
-              <span style={{backgroundColor: "black"}} className="smalldot"></span>
-              <span style={{backgroundColor: "black"}} className="smalldot"></span>
+              <span style={{backgroundColor: bandw.p1}} className="smalldot"></span>
+              <span style={{backgroundColor: bandw.p2}} className="smalldot"></span>
+              <span style={{backgroundColor: bandw.p3}} className="smalldot"></span>
+              <span style={{backgroundColor: bandw.p4}} className="smalldot"></span>
             </div>
           </div>
         )
