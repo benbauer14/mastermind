@@ -155,7 +155,7 @@ function App() {
       <div className="main">
         <h2>Mastermind!</h2>
         <div className="pastguesses">
-        {guessHistory.map(hist => {
+        {guessHistory.map((hist,index) => {
           let bandw = {}
           let bandwcount = 1
           console.log(hist.blackpeg, hist.whitepeg)
@@ -174,6 +174,7 @@ function App() {
 
         return(
           <div className="guesseshistory">
+            <div className="rowcount">{index + 1}</div>
             <div className="colors">
               <span style={{backgroundColor: hist.l1}} className="dot"></span>
               <span style={{backgroundColor: hist.l2}} className="dot"></span>

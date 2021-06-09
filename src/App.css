@@ -56,9 +56,9 @@
   align-items: center;
   justify-content: center;
   display: grid;
-  grid-template-columns: 175px 40px;
+  grid-template-columns: 20px 175px 40px;
   grid-template-rows: 40px;
-  /* border:black 1px solid; */
+  border-bottom:rgba(255, 255, 255, 0.218) 1px solid;
 }
 
 .dotred{
@@ -89,4 +89,10 @@
   background-image: url('./images/wood-pattern.png');
   background-color: rgb(94, 116, 129);
   border: 3px solid black;
+  padding-top: 20px;
+}
+.rowcount{
+  color:white;
+  text-shadow: black 1px 1px;
+  opacity: 35%;
 }
