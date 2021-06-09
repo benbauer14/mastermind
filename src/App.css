@@ -17,7 +17,7 @@
 .main{
   width: 35%;
   height: 40rem;
-  background-color:slategrey;
+  background-color:rgb(26, 82, 139);
   border-radius: 50px;
 }
 
@@ -51,6 +51,7 @@
   display: grid;
   grid-template-columns: 175px 40px;
   grid-template-rows: 40px;
+  /* border:black 1px solid; */
 }
 
 .dotred{
@@ -73,6 +74,11 @@
 }
 
 .pastguesses{
-  height: 70%;
-  border: black, 1px, solid;
+  height: 66%;
+  /* border: black, 1px, solid; */
+  width: 50%;
+  border-radius: 15px;
+  margin-left: 25%;
+  background-image: url('./images/wood-pattern.png');
+  background-color: rgb(94, 116, 129);
 }

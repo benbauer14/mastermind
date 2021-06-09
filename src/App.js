@@ -163,17 +163,14 @@ function App() {
             bandw['p' + bandwcount] = 'black'
             bandwcount = bandwcount + 1
           }
-          console.log(bandw)
           for(let i=0; i<hist.whitepeg; i++){
             bandw['p' + bandwcount] = 'white'
             bandwcount += 1
           }
-          console.log(bandw)
           for(let i=bandwcount; i<5; i++){
             bandw['p' + bandwcount] = 'brown'
             bandwcount += 1
           }
-          console.log(bandw)
 
         return(
           <div className="guesseshistory">
@@ -195,6 +192,7 @@ function App() {
         </div>
       <div className="guess">
         {currentGuess()}
+
         <button onClick={() => addGuess({l1: loc1, l2: loc2, l3:loc3, l4:loc4})}>Submit</button>
       </div>
       </div>
