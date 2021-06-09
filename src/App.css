@@ -29,6 +29,7 @@
   display: inline-block;
   margin-left: 10px;
   border: 1px solid black;
+  background: radial-gradient(circle at 15px 15px, transparent, rgb(44, 44, 44));
 }
 .smalldot{
   height: 10px;
@@ -40,6 +41,7 @@
   grid-template-columns: 10px 10px;
   grid-template-rows: 10px 10px;
   margin-left: 10px;
+  background: radial-gradient(circle at 15px 15px, transparent, rgba(119, 118, 118, 0.848));
 
 
 }
@@ -75,7 +77,7 @@
   background-color: yellow;
 }
 .dotgreen{
-  background-color: green;
+  background-color: rgb(161, 226, 161);
 }
 
 .pastguesses{
@@ -86,4 +88,5 @@
   margin-left: 25%;
   background-image: url('./images/wood-pattern.png');
   background-color: rgb(94, 116, 129);
+  border: 3px solid black;
 }
