@@ -28,22 +28,27 @@
   border-radius: 50%;
   display: inline-block;
   margin-left: 10px;
+  border: 1px solid black;
 }
 .smalldot{
   height: 10px;
   width: 10px;
   background-color: rgb(32, 25, 25);
+  border: 1px solid black;
   border-radius: 50%;
   display:grid;
   grid-template-columns: 10px 10px;
   grid-template-rows: 10px 10px;
   margin-left: 10px;
+
+
 }
 .bandw{
   display:grid;
-  grid-template-columns: 10px 10px;
-  grid-template-rows: 10px 10px;
+  grid-template-columns: 12px 12px;
+  grid-template-rows: 12px 12px;
   width:40px;
+  margin-bottom: 5px;
 }
 .guesseshistory{
   align-items: center;
