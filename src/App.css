@@ -49,14 +49,14 @@
   display:grid;
   grid-template-columns: 12px 12px;
   grid-template-rows: 12px 12px;
-  width:40px;
+  width:25px;
   margin-bottom: 5px;
 }
 .guesseshistory{
   align-items: center;
   justify-content: center;
   display: grid;
-  grid-template-columns: 20px 175px 40px;
+  grid-template-columns: 20px auto 40px;
   grid-template-rows: 40px;
   border-bottom:rgba(255, 255, 255, 0.218) 1px solid;
 }
@@ -81,18 +81,40 @@
 }
 
 .pastguesses{
+  height: 91%;
+  
+}
+.gameboard{
   height: 66%;
   /* border: black, 1px, solid; */
   width: 50%;
   border-radius: 15px;
   margin-left: 25%;
-  background-image: url('./images/wood-pattern.png');
-  background-color: rgb(94, 116, 129);
   border: 3px solid black;
   padding-top: 20px;
+  background-image: url('./images/wood-pattern.png');
+  background-color: rgb(94, 116, 129);
+}
+.guess{
+  border-top: 3px solid black;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 20px auto 40px;
+  grid-template-rows: 40px;
 }
 .rowcount{
   color:white;
   text-shadow: black 1px 1px;
   opacity: 35%;
+}
+
+.guess button{
+  margin-bottom: 12px;
+  margin-left: 5px;
+  height: 25px;
+  width: 25px;
+  border-radius: 5px;
+  font-weight: 800;
+  background-color: rgba(43, 148, 253, 0.745);
 }

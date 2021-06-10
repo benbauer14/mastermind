@@ -40,10 +40,6 @@ function App() {
     console.log(solutionObject)
     setSolution(solutionObject)
   }
-  const guesses = () => {
-
-
-  }
 
   const addGuess = (guess) =>{
     //extract the values from guess and solution
@@ -154,6 +150,7 @@ function App() {
       <header className="App-header">
       <div className="main">
         <h2>Mastermind!</h2>
+      <div className="gameboard">
         <div className="pastguesses">
         {guessHistory.map((hist,index) => {
           let bandw = {}
@@ -190,11 +187,17 @@ function App() {
           </div>
         )
       })}
+      
         </div>
       <div className="guess">
-        {currentGuess()}
-
-        <button onClick={() => addGuess({l1: loc1, l2: loc2, l3:loc3, l4:loc4})}>Submit</button>
+          <div className="rowcount">?</div>
+          <div>
+          {currentGuess()}
+          </div>
+          <div>
+          <button onClick={() => addGuess({l1: loc1, l2: loc2, l3:loc3, l4:loc4})}>?</button>
+          </div>
+      </div>
       </div>
       </div>
       </header>
