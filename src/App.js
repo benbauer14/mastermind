@@ -1,5 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import swal from 'sweetalert';
+
 
 function App() {
   const [guessHistory, setGuessHistory] = useState([])
@@ -43,10 +45,16 @@ function App() {
 
   const addGuess = (guess) =>{
     //extract the values from guess and solution
-    console.log("guess", guess)
+
     let guessArray = Object.values(guess)
     let solutionArray = Object.values(solution)
     let whitepegs = 0
+
+    if(guess.l1 === "grey" || guess.l2 === "grey" || guess.l3 === "grey" || guess.l4 === "grey"){
+      swal("Please enter a valid guess!", "Click the circles on the gameboard to change the color.");
+      return null
+    }
+
     //combine values into a single array with duplicates
     for(let i=0; i < solutionArray.length; i++){
       for (let j=guessArray.length; j> -1;j--){
@@ -149,7 +157,7 @@ function App() {
     <div className="App">
       <header className="App-header">
       <div className="main">
-        <h2>Mastermind!</h2>
+        <h1 aria-label="Mastermind!"></h1>
       <div className="gameboard">
         <div className="pastguesses">
         {guessHistory.map((hist,index) => {
