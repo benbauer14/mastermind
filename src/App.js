@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import swal from 'sweetalert';
+import { useStopwatch } from 'react-timer-hook';
 
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
   const [loc3, setLoc3] = useState("grey")
   const [loc4, setLoc4] = useState("grey")
   const [solution, setSolution] = useState({})
-
+  const [timeseconds, setTimer] = useState(0)
+ 
   const generateSolution = () => {
     //takes a random number and translates the number into a preassigned value. 
     // A total of four random values are selected and the solution is generated.
@@ -41,6 +43,34 @@ function App() {
     }
     console.log(solutionObject)
     setSolution(solutionObject)
+  }
+
+  function MyStopwatch() {
+    const {
+      seconds,
+      minutes,
+      hours,
+      days,
+      isRunning,
+      start,
+      pause,
+      reset,
+    } = useStopwatch({ autoStart: false });
+  
+  
+    return (
+      <div style={{textAlign: 'center'}}>
+        <h1>react-timer-hook</h1>
+        <p>Stopwatch Demo</p>
+        <div style={{fontSize: '10px'}}>
+          <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+        </div>
+        <p>{isRunning ? 'Running' : 'Not running'}</p>
+        <button onClick={start}>Start</button>
+        <button onClick={pause}>Pause</button>
+        <button onClick={reset}>Reset</button>
+      </div>
+    );
   }
 
   const addGuess = (guess) =>{
@@ -87,9 +117,22 @@ function App() {
     let guesswithright = guess
     guesswithright['blackpeg'] = blackpegs
     guesswithright['whitepeg'] = whitepegs - blackpegs
+
+    if(blackpegs === 4){
+      swal("Winner!!", "You are a Mastermind! Congrats!");
+      history.push(guesswithright)
+      setGuessHistory(history)
+      console.log(guessHistory)
+    }else if(guessCount >= 9){
+      swal("Loser!!", "You are have much work to do to become the Mastermind! Fail!");
+      history.push(guesswithright)
+      setGuessHistory(history)
+      console.log(guessHistory)
+    }else{
     history.push(guesswithright)
     setGuessHistory(history)
     console.log(guessHistory)
+    }
   }
   
 
@@ -151,6 +194,10 @@ function App() {
 
   useEffect(() => {
     generateSolution()
+    let duration = setInterval(() => {
+      setTimer(timeseconds +0.10)
+    }, 10)
+    console.log(duration)
   }, []);
 
   return (
@@ -203,6 +250,7 @@ function App() {
           {currentGuess()}
           </div>
           <div>
+          <MyStopwatch />
           <button onClick={() => addGuess({l1: loc1, l2: loc2, l3:loc3, l4:loc4})}>?</button>
           </div>
       </div>

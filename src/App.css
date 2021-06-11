@@ -24,7 +24,6 @@
   height: 40rem;
   background-image: url('../src/images/ripple.jpeg');
   /* background-image: linear-gradient(120deg,rgb(24, 41, 57),rgb(26, 82, 139),rgb(24, 41, 57) ); */
-  /* background-color:rgb(26, 82, 139); */
   border-radius: 50px;
 }
 
@@ -92,13 +91,14 @@
   
 }
 .gameboard{
-  height: 66%;
+  height: 75%;
   /* border: black, 1px, solid; */
   width: 50%;
   border-radius: 15px;
   margin-left: 25%;
   margin-top: 100px;
-  border: 3px solid black;
+  border: 2px solid rgba(0, 0, 0, 0.471);
+  box-shadow: 8px 8px rgba(0, 0, 0, 0.266);
   padding-top: 20px;
   background-image: url('./images/wood-pattern.png');
   background-color: rgb(94, 116, 129);
