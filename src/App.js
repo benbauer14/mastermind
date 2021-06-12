@@ -2,6 +2,8 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import { useStopwatch } from 'react-timer-hook';
+import React from 'react'
+import {Timer} from 'react-compound-timer'
 
 
 function App() {
@@ -47,6 +49,7 @@ function App() {
 
   function MyStopwatch() {
     const {
+      milliseconds,
       seconds,
       minutes,
       hours,
@@ -61,7 +64,7 @@ function App() {
     return (
       <div style={{textAlign: 'center'}}>
         <div style={{fontSize: '20px'}}>
-          <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+          <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>:<span>{milliseconds}</span>
         </div>
         <p>{isRunning ? 'Running' : 'Not running'}</p>
         <button onClick={start}>Start</button>
@@ -252,7 +255,9 @@ function App() {
           </div>
       </div>
       </div>
-      <div className="rightscore"><MyStopwatch /></div>
+      <div className="rightscore">
+        Time goes here
+      </div>
       </div>
       </header>
     </div>
