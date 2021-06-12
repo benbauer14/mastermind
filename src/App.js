@@ -60,15 +60,11 @@ function App() {
   
     return (
       <div style={{textAlign: 'center'}}>
-        <h1>react-timer-hook</h1>
-        <p>Stopwatch Demo</p>
-        <div style={{fontSize: '10px'}}>
+        <div style={{fontSize: '20px'}}>
           <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
         </div>
         <p>{isRunning ? 'Running' : 'Not running'}</p>
         <button onClick={start}>Start</button>
-        <button onClick={pause}>Pause</button>
-        <button onClick={reset}>Reset</button>
       </div>
     );
   }
@@ -194,17 +190,18 @@ function App() {
 
   useEffect(() => {
     generateSolution()
-    let duration = setInterval(() => {
-      setTimer(timeseconds +0.10)
-    }, 10)
-    console.log(duration)
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
       <div className="main">
+        <div></div>
+        <div className="header">
         <h1 aria-label="Mastermind!"></h1>
+        </div>
+        <div></div>
+        <div className="scoreshistory">test</div>
       <div className="gameboard">
         <div className="pastguesses">
         {guessHistory.map((hist,index) => {
@@ -250,11 +247,12 @@ function App() {
           {currentGuess()}
           </div>
           <div>
-          <MyStopwatch />
+
           <button onClick={() => addGuess({l1: loc1, l2: loc2, l3:loc3, l4:loc4})}>?</button>
           </div>
       </div>
       </div>
+      <div className="rightscore"><MyStopwatch /></div>
       </div>
       </header>
     </div>
