@@ -71,13 +71,16 @@ const startScore = () => {
     let solutionArray = Object.values(solution)
     let whitepegs = 0
 
-    if(guessCount === 0){
-      startScore()
-    }
+
 
     if(guess.l1 === "grey" || guess.l2 === "grey" || guess.l3 === "grey" || guess.l4 === "grey"){
       swal("Please enter a valid guess!", "Click the circles on the gameboard to change the color.");
       return null
+    }
+    
+    //starts bonus counter if guess is 0
+    if(guessCount === 0){
+      startScore()
     }
 
     //combine values into a single array with duplicates
