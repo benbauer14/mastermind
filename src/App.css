@@ -129,10 +129,10 @@
   background-color: rgba(43, 148, 253, 0.745);
 }
 .header{
-  margin-left: 150px;
+  /* margin-left: 180px; */
 }
 h1 {
-  /* position: relative; */
+  position: relative;
   margin-top: 60px;
   font-family: 'Roboto', Arial, sans-serif;
   font-weight: 700;
@@ -147,7 +147,7 @@ h1::after {
   content: attr(aria-label);
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
   transform: translate(-50%, -50%);
   text-shadow: 0.01em 0.01em 0.01em rgba(0, 0, 0, 0.3);
 }
