@@ -14,7 +14,8 @@ function App() {
   const [loc3, setLoc3] = useState("grey")
   const [loc4, setLoc4] = useState("grey")
   const [solution, setSolution] = useState({})
-  const [timeseconds, setTimer] = useState(0)
+  const [starttimer, setstarttime] = useState(Date.now())
+  const [score, setScore] = useState(5000)
  
   const generateSolution = () => {
     //takes a random number and translates the number into a preassigned value. 
@@ -47,30 +48,21 @@ function App() {
     setSolution(solutionObject)
   }
 
-  function MyStopwatch() {
-    const {
-      milliseconds,
-      seconds,
-      minutes,
-      hours,
-      days,
-      isRunning,
-      start,
-      pause,
-      reset,
-    } = useStopwatch({ autoStart: false });
-  
-  
-    return (
-      <div style={{textAlign: 'center'}}>
-        <div style={{fontSize: '20px'}}>
-          <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>:<span>{milliseconds}</span>
-        </div>
-        <p>{isRunning ? 'Running' : 'Not running'}</p>
-        <button onClick={start}>Start</button>
-      </div>
-    );
-  }
+
+const startScore = () => {
+  let starttime = (Date.now());
+
+  var interval = setInterval(function() {
+      var elapsedTime = Date.now() - starttime;
+      let calcscore = (5000 - ((elapsedTime / 1000).toFixed(2)) * 100).toFixed(0);
+      if(calcscore <= 0){
+        setScore(0)
+      }else{
+        setScore(calcscore)
+      }
+  }, 10);
+}
+
 
   const addGuess = (guess) =>{
     //extract the values from guess and solution
@@ -78,6 +70,10 @@ function App() {
     let guessArray = Object.values(guess)
     let solutionArray = Object.values(solution)
     let whitepegs = 0
+
+    if(guessCount === 0){
+      startScore()
+    }
 
     if(guess.l1 === "grey" || guess.l2 === "grey" || guess.l3 === "grey" || guess.l4 === "grey"){
       swal("Please enter a valid guess!", "Click the circles on the gameboard to change the color.");
@@ -256,7 +252,7 @@ function App() {
       </div>
       </div>
       <div className="rightscore">
-        Time goes here
+        {score}
       </div>
       </div>
       </header>
