@@ -4,6 +4,7 @@ import swal from 'sweetalert';
 import { useStopwatch } from 'react-timer-hook';
 import React from 'react'
 import {Timer} from 'react-compound-timer'
+import {HiOutlineRefresh} from 'react-icons/hi'
 
 
 function App() {
@@ -256,7 +257,23 @@ const startScore = () => {
       </div>
       </div>
       <div className="rightscore">
-        <h6>Bonus: {score}</h6>
+        <p>Bonus: {score}</p>
+        <p>Time:</p>
+        <span style={{display: 'inline-flex'}}>
+        <p>Colors:</p><select>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option defaultValue selected>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+        </select>
+        </span>
+        <p>High Scores</p>
+        <p style={{fontSize: '30px'}}><HiOutlineRefresh /></p>
+
       </div>
       </div>
       </header>

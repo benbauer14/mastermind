@@ -111,6 +111,15 @@
   padding-bottom: 20px ;
 }
 
+.rightscore select{
+  height:20px;
+  margin-top: 15px;
+  margin-left: 5px;
+}
+
+.rightscore p{
+  font-size: 15px;
+}
 
 .guess{
   border-top: rgba(255, 255, 255, 0.218) 3px solid;
