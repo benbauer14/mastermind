@@ -57,6 +57,7 @@ const startScore = () => {
       let calcscore = (5000 - ((elapsedTime / 1000).toFixed(2)) * 100).toFixed(0);
       if(calcscore <= 0){
         setScore(0)
+        clearInterval()
       }else{
         setScore(calcscore)
       }
@@ -77,7 +78,7 @@ const startScore = () => {
       swal("Please enter a valid guess!", "Click the circles on the gameboard to change the color.");
       return null
     }
-    
+
     //starts bonus counter if guess is 0
     if(guessCount === 0){
       startScore()
@@ -198,12 +199,12 @@ const startScore = () => {
     <div className="App">
       <header className="App-header">
       <div className="main">
-        <div></div>
+        {/* <div></div> */}
         <div className="header">
         <h1 aria-label="Mastermind!"></h1>
         </div>
         <div></div>
-        <div className="scoreshistory">test</div>
+        {/* <div className="scoreshistory">test</div> */}
       <div className="gameboard">
         <div className="pastguesses">
         {guessHistory.map((hist,index) => {
@@ -255,7 +256,7 @@ const startScore = () => {
       </div>
       </div>
       <div className="rightscore">
-        {score}
+        <h6>Bonus: {score}</h6>
       </div>
       </div>
       </header>
