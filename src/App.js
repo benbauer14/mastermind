@@ -5,6 +5,7 @@ import { useStopwatch } from 'react-timer-hook';
 import React from 'react'
 import {Timer} from 'react-compound-timer'
 import {HiOutlineRefresh} from 'react-icons/hi'
+import {FaStop} from 'react-icons/fa'
 
 
 function App() {
@@ -16,14 +17,17 @@ function App() {
   const [loc4, setLoc4] = useState("grey")
   const [solution, setSolution] = useState({})
   const [starttimer, setstarttime] = useState(Date.now())
+  const [timer, setTimer] = useState(0)
+  const [timerstatus, setTimerStatus] = useState(false)
   const [score, setScore] = useState(5000)
+  const [colors, setColors] = useState(6)
  
   const generateSolution = () => {
     //takes a random number and translates the number into a preassigned value. 
     // A total of four random values are selected and the solution is generated.
     let solutionObject = {}
     for(let i = 1; i < 5; i++){
-      let randColorNum = Math.floor(Math.random()*6 + 1)
+      let randColorNum = Math.floor(Math.random()*colors + 1)
         switch(randColorNum){
           case 1:
             solutionObject['l'+i] = "red"
@@ -43,6 +47,21 @@ function App() {
           case 6:
             solutionObject['l'+i] = "white"
             break;
+          case 7:
+            solutionObject['l'+i] = "orange"
+            break;
+          case 8:
+            solutionObject['l'+i] = "purple"
+            break;
+          case 9:
+            solutionObject['l'+i] = "neongreen"
+            break;
+          case 10:
+            solutionObject['l'+i] = "neonpink"
+            break;
+          case 6:
+            solutionObject['l'+i] = "neonblue"
+            break;
         }
     }
     console.log(solutionObject)
@@ -52,6 +71,7 @@ function App() {
 
 const startScore = () => {
   let starttime = (Date.now());
+  setTimerStatus(true)
 
   var interval = setInterval(function() {
       var elapsedTime = Date.now() - starttime;
@@ -63,6 +83,14 @@ const startScore = () => {
         setScore(calcscore)
       }
   }, 10);
+  var timertracker = setInterval(function() {
+    var elapsedTimer = Date.now() - starttime;
+    setTimer((elapsedTimer / 1000).toFixed(0))
+    if(timerstatus === false){
+      clearInterval()
+    }
+}, 1000);
+
 }
 
 
@@ -83,6 +111,7 @@ const startScore = () => {
     //starts bonus counter if guess is 0
     if(guessCount === 0){
       startScore()
+      generateSolution()
     }
 
     //combine values into a single array with duplicates
@@ -258,22 +287,23 @@ const startScore = () => {
       </div>
       <div className="rightscore">
         <p>Bonus: {score}</p>
-        <p>Time:</p>
+        <p>Time: {timer}</p>
         <span style={{display: 'inline-flex'}}>
-        <p>Colors:</p><select>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option defaultValue selected>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
+        <p>Colors:</p><select onChange={(event) => setColors(event.target.value)}>
+          <option value='3'>3</option>
+          <option value='4'>4</option>
+          <option value='5'>5</option>
+          <option value='6' defaultValue selected>6</option>
+          <option value='7'>7</option>
+          <option value='8'>8</option>
+          <option value='9'>9</option>
+          <option value='10'>10</option>
         </select>
         </span>
-        <p>High Scores</p>
-        <p style={{fontSize: '30px'}}><HiOutlineRefresh /></p>
 
+        <p style={{fontSize: '30px'}}><HiOutlineRefresh /></p>
+        <p style={{fontSize: '20px'}}><FaStop/></p>
+        <p>High Scores</p>
       </div>
       </div>
       </header>
