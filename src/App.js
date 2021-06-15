@@ -18,7 +18,7 @@ function App() {
   const [solution, setSolution] = useState({})
   const [starttimer, setstarttime] = useState(Date.now())
   const [timer, setTimer] = useState(0)
-  const [timerstatus, setTimerStatus] = useState(false)
+  const [timerstatus, setTimerStatus] = useState(true)
   const [score, setScore] = useState(5000)
   const [colors, setColors] = useState(6)
  
@@ -59,9 +59,6 @@ function App() {
           case 10:
             solutionObject['l'+i] = "neonpink"
             break;
-          case 6:
-            solutionObject['l'+i] = "neonblue"
-            break;
         }
     }
     console.log(solutionObject)
@@ -71,23 +68,24 @@ function App() {
 
 const startScore = () => {
   let starttime = (Date.now());
-  setTimerStatus(true)
 
   var interval = setInterval(function() {
       var elapsedTime = Date.now() - starttime;
       let calcscore = (5000 - ((elapsedTime / 1000).toFixed(2)) * 100).toFixed(0);
       if(calcscore <= 0){
         setScore(0)
-        clearInterval()
+        clearInterval(elapsedTime)
       }else{
         setScore(calcscore)
       }
   }, 10);
   var timertracker = setInterval(function() {
     var elapsedTimer = Date.now() - starttime;
-    setTimer((elapsedTimer / 1000).toFixed(0))
+    console.log(timerstatus)
     if(timerstatus === false){
-      clearInterval()
+      clearInterval(elapsedTimer)
+    }else{
+      setTimer((elapsedTimer / 1000).toFixed(0))
     }
 }, 1000);
 
@@ -124,7 +122,6 @@ const startScore = () => {
         }
       }
     }
-    console.log(whitepegs)
     //determine black pegs
     let blackpegs = 0
     if(solution.l1 === guess.l1){
@@ -151,11 +148,15 @@ const startScore = () => {
       swal("Winner!!", "You are a Mastermind! Congrats!");
       history.push(guesswithright)
       setGuessHistory(history)
+      setTimerStatus(false)
+      console.log(timerstatus)
       console.log(guessHistory)
     }else if(guessCount >= 9){
       swal("Loser!!", "You are have much work to do to become the Mastermind! Fail!");
       history.push(guesswithright)
       setGuessHistory(history)
+      setTimerStatus(false)
+      console.log('loser', timerstatus)
       console.log(guessHistory)
     }else{
     history.push(guesswithright)
@@ -193,14 +194,51 @@ const startScore = () => {
     }else if(currentColor === "blue"){
       newColor = "green"
     }else if(currentColor === "green"){
-      newColor = "yellow"
+      if(colors >=4){
+        newColor = "yellow"
+      }else{
+        newColor = "red"
+      }
     }else if(currentColor === "yellow"){
-      newColor = "black"
+      if(colors >=5){
+        newColor = "black"
+      }else{
+        newColor = "red"
+      }
     }else if(currentColor === "black"){
-      newColor = "white"
+      if(colors >=6){
+        newColor = "white"
+      }else{
+        newColor = "red"
+      }
     }else if( currentColor === "white"){
-      newColor = "red"
+      if(colors >=7){
+        newColor = "orange"
+      }else{
+        newColor = "red"
+      }
+    }else if( currentColor === "orange"){
+      if(colors >=8){
+        newColor = "purple"
+      }else{
+        newColor = "red"
+      }
+    }else if( currentColor === "purple"){
+      if(colors >=9){
+        newColor = "greenyellow"
+      }else{
+        newColor = "red"
+      }
+    }else if( currentColor === "greenyellow"){
+      if(colors >=10){
+        newColor = "magenta"
+      }else{
+        newColor = "red"
+      }
+    }else if( currentColor === "magenta"){
+        newColor = "red"
     }
+    
     if(location === 1){
       setLoc1(newColor)
     }else if(location === 2){
@@ -240,7 +278,6 @@ const startScore = () => {
         {guessHistory.map((hist,index) => {
           let bandw = {}
           let bandwcount = 1
-          console.log(hist.blackpeg, hist.whitepeg)
           for(let i=0; i<hist.blackpeg; i++){
             bandw['p' + bandwcount] = 'black'
             bandwcount = bandwcount + 1
