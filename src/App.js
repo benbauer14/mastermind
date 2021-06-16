@@ -1,9 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import swal from 'sweetalert';
-import { useStopwatch } from 'react-timer-hook';
 import React from 'react'
-import {Timer} from 'react-compound-timer'
 import {HiOutlineRefresh} from 'react-icons/hi'
 import {FaStop} from 'react-icons/fa'
 
@@ -16,12 +14,12 @@ function App() {
   const [loc3, setLoc3] = useState("grey")
   const [loc4, setLoc4] = useState("grey")
   const [solution, setSolution] = useState({})
-  const [starttimer, setstarttime] = useState(Date.now())
   const [timer, setTimer] = useState(0)
-  const [timerstatus, setTimerStatus] = useState(true)
   const [score, setScore] = useState(5000)
   const [colors, setColors] = useState(6)
  
+
+
   const generateSolution = () => {
     //takes a random number and translates the number into a preassigned value. 
     // A total of four random values are selected and the solution is generated.
@@ -69,24 +67,20 @@ function App() {
 const startScore = () => {
   let starttime = (Date.now());
 
-  var interval = setInterval(function() {
+  window.interval = setInterval(function() {
       var elapsedTime = Date.now() - starttime;
       let calcscore = (5000 - ((elapsedTime / 1000).toFixed(2)) * 100).toFixed(0);
       if(calcscore <= 0){
         setScore(0)
-        clearInterval(elapsedTime)
+        clearInterval(window.interval)
       }else{
         setScore(calcscore)
       }
   }, 10);
-  var timertracker = setInterval(function() {
+window.timertracker = setInterval(function() {
     var elapsedTimer = Date.now() - starttime;
-    console.log(timerstatus)
-    if(timerstatus === false){
-      clearInterval(elapsedTimer)
-    }else{
       setTimer((elapsedTimer / 1000).toFixed(0))
-    }
+
 }, 1000);
 
 }
@@ -98,7 +92,6 @@ const startScore = () => {
     let guessArray = Object.values(guess)
     let solutionArray = Object.values(solution)
     let whitepegs = 0
-
 
 
     if(guess.l1 === "grey" || guess.l2 === "grey" || guess.l3 === "grey" || guess.l4 === "grey"){
@@ -148,15 +141,14 @@ const startScore = () => {
       swal("Winner!!", "You are a Mastermind! Congrats!");
       history.push(guesswithright)
       setGuessHistory(history)
-      setTimerStatus(false)
-      console.log(timerstatus)
+      clearInterval(window.timertracker)
+      clearInterval(window.interval)
       console.log(guessHistory)
     }else if(guessCount >= 9){
       swal("Loser!!", "You are have much work to do to become the Mastermind! Fail!");
       history.push(guesswithright)
-      setGuessHistory(history)
-      setTimerStatus(false)
-      console.log('loser', timerstatus)
+      clearInterval(window.timertracker)
+      clearInterval(window.interval)
       console.log(guessHistory)
     }else{
     history.push(guesswithright)
