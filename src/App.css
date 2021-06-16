@@ -197,3 +197,13 @@ h1::after {
               clip-path: polygon(0% 60%, 100% 60%, 100% 100%, 0% 100%);
   }
 }
+
+.iconButtons:hover{
+  color:rgba(43, 148, 253, 0.745);
+  text-shadow: black 2px 2px;
+}
+
+
+p{
+  text-shadow: black 2px 2px;
+}

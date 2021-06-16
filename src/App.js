@@ -242,6 +242,25 @@ window.timertracker = setInterval(function() {
     }
   }
 
+  const pauseGame = () => {
+
+  }
+
+  const resetGame = () => {
+    clearInterval(window.interval)
+    clearInterval(window.timertracker)
+    setGuessHistory([])
+    setGuessCount(0)
+    setLoc1("grey")
+    setLoc2("grey")
+    setLoc3("grey")
+    setLoc4("grey")
+    setSolution({})
+    setTimer(0)
+    setScore(5000)
+
+  }
+
   const currentGuess = () =>{
     return(<>
           <span style={{backgroundColor: loc1}} onClick={() => cycleColor(1)} className="dot"></span>
@@ -329,10 +348,12 @@ window.timertracker = setInterval(function() {
           <option value='10'>10</option>
         </select>
         </span>
+        <hr></hr>
 
-        <p style={{fontSize: '30px'}}><HiOutlineRefresh /></p>
-        <p style={{fontSize: '20px'}}><FaStop/></p>
-        <p>High Scores</p>
+        <p style={{fontSize: '30px'}} className="iconButtons" onClick={() => {resetGame()}}><HiOutlineRefresh /></p>
+        <p style={{fontSize: '20px'}} className="iconButtons" alt="Stop" onClick={() => {pauseGame()}}><FaStop/></p>
+        <hr></hr>
+        <p className="iconButtons">High Scores</p>
       </div>
       </div>
       </header>
