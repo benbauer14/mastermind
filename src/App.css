@@ -203,7 +203,10 @@ h1::after {
   text-shadow: black 2px 2px;
 }
 
+.iconButtons{
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 1));
+}
 
 p{
-  text-shadow: black 2px 2px;
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 1));
 }
