@@ -23,7 +23,7 @@ function App() {
   const [loc2, setLoc2] = useState("grey")
   const [loc3, setLoc3] = useState("grey")
   const [loc4, setLoc4] = useState("grey")
-  const [solution, setSolution] = useState({})
+  const [solution, setSolution] = useState('')
   const [timer, setTimer] = useState(0)
   const [score, setScore] = useState(5000)
   const [colors, setColors] = useState(6)
@@ -78,12 +78,12 @@ function App() {
       setOpen(false);
     };
 
-  const generateSolution = () => {
+  const generateSolution = (numofcolors) => {
     //takes a random number and translates the number into a preassigned value. 
     // A total of four random values are selected and the solution is generated.
     let solutionObject = {}
     for(let i = 1; i < 5; i++){
-      let randColorNum = Math.floor(Math.random()*colors + 1)
+      let randColorNum = Math.floor(Math.random()*numofcolors + 1)
         switch(randColorNum){
           case 1:
             solutionObject['l'+i] = "red"
@@ -119,6 +119,7 @@ function App() {
     }
     console.log(solutionObject)
     setSolution(solutionObject)
+
   }
 
 
@@ -143,79 +144,86 @@ window.timertracker = setInterval(function() {
 
 }
 
+  const setColorsFunc = (numofcolors) => {
+    setColors(numofcolors);
+    console.log(colors)
+    generateSolution(numofcolors)
+  }
 
   const addGuess = (guess) =>{
-    //extract the values from guess and solution
 
-    let guessArray = Object.values(guess)
-    let solutionArray = Object.values(solution)
-    let whitepegs = 0
-
-
-    if(guess.l1 === "grey" || guess.l2 === "grey" || guess.l3 === "grey" || guess.l4 === "grey"){
-      swal("Please enter a valid guess!", "Click the circles on the gameboard to change the color.");
-      return null
-    }
-
-    //starts bonus counter if guess is 0
+        //starts bonus counter and generates solution if guess is 0
     if(guessCount === 0){
       startScore()
-      generateSolution()
-    }
+     }
 
-    //combine values into a single array with duplicates
-    for(let i=0; i < solutionArray.length; i++){
-      for (let j=guessArray.length; j> -1;j--){
-        if(solutionArray[i] === guessArray[j]){
-          guessArray.splice(j,1)
-          whitepegs += 1
-          break
+      let guessArray = Object.values(guess)
+      let solutionArray = Object.values(solution)
+      let whitepegs = 0
+  
+  
+      if(guess.l1 === "grey" || guess.l2 === "grey" || guess.l3 === "grey" || guess.l4 === "grey"){
+        swal("Please enter a valid guess!", "Click the circles on the gameboard to change the color.");
+        return null
+      }
+
+      //combine values into a single array with duplicates
+      for(let i=0; i < solutionArray.length; i++){
+        for (let j=guessArray.length; j> -1;j--){
+          if(solutionArray[i] === guessArray[j]){
+            guessArray.splice(j,1)
+            whitepegs += 1
+            break
+          }
         }
       }
-    }
-    //determine black pegs
-    let blackpegs = 0
-    if(solution.l1 === guess.l1){
-      blackpegs += 1
-    }
-    if(solution.l2 === guess.l2){
-      blackpegs += 1
-    }
-    if(solution.l3 === guess.l3){
-      blackpegs += 1
-    }
-    if(solution.l4 === guess.l4){
-      blackpegs += 1
-    }
-    console.log("black", blackpegs, "white", whitepegs - blackpegs)
-    setGuessCount(guessCount +1)
-    let history = guessHistory
-    //add blackpeg and whitepeg count to guess
-    let guesswithright = guess
-    guesswithright['blackpeg'] = blackpegs
-    guesswithright['whitepeg'] = whitepegs - blackpegs
-
-    if(blackpegs === 4){
-      setDialogHeader("Winner!")
-      handleClickOpen()
+      //determine black pegs
+  
+  
+      let blackpegs = 0
+      if(solution.l1 === guess.l1){
+        blackpegs += 1
+      }
+      if(solution.l2 === guess.l2){
+        blackpegs += 1
+      }
+      if(solution.l3 === guess.l3){
+        blackpegs += 1
+      }
+      if(solution.l4 === guess.l4){
+        blackpegs += 1
+      }
+      console.log("black", blackpegs, "white", whitepegs - blackpegs)
+      setGuessCount(guessCount +1)
+      let history = guessHistory
+      //add blackpeg and whitepeg count to guess
+      let guesswithright = guess
+      guesswithright['blackpeg'] = blackpegs
+      guesswithright['whitepeg'] = whitepegs - blackpegs
+  
+      if(blackpegs === 4){
+        setDialogHeader("Winner!")
+        handleClickOpen()
+        history.push(guesswithright)
+        setGuessHistory(history)
+        clearInterval(window.timertracker)
+        clearInterval(window.interval)
+        console.log(guessHistory)
+      }else if(guessCount >= 9){
+        setDialogHeader("Loser!")
+        handleClickOpen()
+        history.push(guesswithright)
+        clearInterval(window.timertracker)
+        clearInterval(window.interval)
+        console.log(guessHistory)
+      }else{
       history.push(guesswithright)
       setGuessHistory(history)
-      clearInterval(window.timertracker)
-      clearInterval(window.interval)
       console.log(guessHistory)
-    }else if(guessCount >= 9){
-      setDialogHeader("Loser!")
-      handleClickOpen()
-      history.push(guesswithright)
-      clearInterval(window.timertracker)
-      clearInterval(window.interval)
-      console.log(guessHistory)
-    }else{
-    history.push(guesswithright)
-    setGuessHistory(history)
-    console.log(guessHistory)
-    }
+      }
+    
   }
+
   
 
   const cycleColor = (location) => {
@@ -353,7 +361,7 @@ window.timertracker = setInterval(function() {
   }
 
   useEffect(() => {
-    generateSolution()
+    generateSolution(6)
   }, []);
 
   return (
@@ -420,7 +428,7 @@ window.timertracker = setInterval(function() {
         <p>Bonus: {score}</p>
         <p>Time: {timer}</p>
         <span style={{display: 'inline-flex'}}>
-        <p>Colors:</p><select onChange={(event) => setColors(event.target.value)}>
+        <p>Colors:</p><select onChange={(event) => setColorsFunc((event.target.value))}>
           <option value='3'>3</option>
           <option value='4'>4</option>
           <option value='5'>5</option>
