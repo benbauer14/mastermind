@@ -3,7 +3,17 @@ import { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import React from 'react'
 import {HiOutlineRefresh} from 'react-icons/hi'
-import {FaStop} from 'react-icons/fa'
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
+
+
 
 
 function App() {
@@ -17,8 +27,56 @@ function App() {
   const [timer, setTimer] = useState(0)
   const [score, setScore] = useState(5000)
   const [colors, setColors] = useState(6)
+  const [dialogHeader, setDialogHeader] = useState('High Score')
  
+  const styles = (theme) => ({
+    root: {
+      margin: 0,
+      padding: theme.spacing(2),
+    },
+    closeButton: {
+      position: 'absolute',
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: theme.palette.grey[500],
+    },
+  });
 
+  const DialogTitle = withStyles(styles)((props) => {
+    const { children, classes, onClose, ...other } = props;
+    return (
+      <MuiDialogTitle disableTypography className={classes.root} {...other}>
+        <Typography variant="h6">{children}</Typography>
+        {onClose ? (
+          <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        ) : null}
+      </MuiDialogTitle>
+    );
+  });
+  
+  const DialogContent = withStyles((theme) => ({
+    root: {
+      padding: theme.spacing(2),
+    },
+  }))(MuiDialogContent);
+  
+  const DialogActions = withStyles((theme) => ({
+    root: {
+      margin: 0,
+      padding: theme.spacing(1),
+    },
+  }))(MuiDialogActions);
+  
+    const [open, setOpen] = React.useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
 
   const generateSolution = () => {
     //takes a random number and translates the number into a preassigned value. 
@@ -138,14 +196,16 @@ window.timertracker = setInterval(function() {
     guesswithright['whitepeg'] = whitepegs - blackpegs
 
     if(blackpegs === 4){
-      swal("Winner!!", "You are a Mastermind! Congrats!");
+      setDialogHeader("Winner!")
+      handleClickOpen()
       history.push(guesswithright)
       setGuessHistory(history)
       clearInterval(window.timertracker)
       clearInterval(window.interval)
       console.log(guessHistory)
     }else if(guessCount >= 9){
-      swal("Loser!!", "You are have much work to do to become the Mastermind! Fail!");
+      setDialogHeader("Loser!")
+      handleClickOpen()
       history.push(guesswithright)
       clearInterval(window.timertracker)
       clearInterval(window.interval)
@@ -261,6 +321,28 @@ window.timertracker = setInterval(function() {
 
   }
 
+  const dialogBody = () => {
+    if(dialogHeader === "High Score"){
+      return(
+        <table>
+        <thead>
+        <th className="place"></th><th>Name</th><th>Colors</th><th>Time</th><th>Score</th>
+        </thead>
+        <tr><td>1</td><td>BGB</td><td>5</td><td>35s</td><td>2653</td></tr>
+        <tr>st</tr>
+      </table>
+      )
+    }else if(dialogHeader === "Winner!"){
+      return(
+        <Typography>You are a Mastermind! Congrats!</Typography>
+      )
+    }else if(dialogHeader === "Loser!"){
+      return(
+        <Typography>You are have much work to do to become the Mastermind! Fail!</Typography>
+      )
+    }
+  }
+
   const currentGuess = () =>{
     return(<>
           <span style={{backgroundColor: loc1}} onClick={() => cycleColor(1)} className="dot"></span>
@@ -301,6 +383,7 @@ window.timertracker = setInterval(function() {
             bandw['p' + bandwcount] = 'brown'
             bandwcount += 1
           }
+
 
         return(
           <div className="guesseshistory">
@@ -352,12 +435,46 @@ window.timertracker = setInterval(function() {
 
         <p style={{fontSize: '30px'}} className="iconButtons" onClick={() => {resetGame()}}><HiOutlineRefresh /></p>
         <hr></hr>
-        <button className="iconButtons">High Scores</button>
+        <p className="iconButtons" onClick={handleClickOpen}>High Scores</p>
       </div>
       </div>
       </header>
+      <div>
+        {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          Open dialog
+        </Button> */}
+        <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+          <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+            {dialogHeader}
+          </DialogTitle>
+          <DialogContent dividers>
+            {/* <Typography gutterBottom>
+              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+              in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+            </Typography>
+            <Typography gutterBottom>
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
+              lacus vel augue laoreet rutrum faucibus dolor auctor.
+            </Typography>
+            <Typography gutterBottom>
+              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+              auctor fringilla.
+            </Typography> */}
+            {dialogBody()}
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={handleClose} color="primary">
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </div>
-  );
+
+
+
+);
 }
 
 export default App;
