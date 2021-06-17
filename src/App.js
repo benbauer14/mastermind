@@ -352,7 +352,7 @@ window.timertracker = setInterval(function() {
 
         <p style={{fontSize: '30px'}} className="iconButtons" onClick={() => {resetGame()}}><HiOutlineRefresh /></p>
         <hr></hr>
-        <p className="iconButtons">High Scores</p>
+        <button className="iconButtons">High Scores</button>
       </div>
       </div>
       </header>
