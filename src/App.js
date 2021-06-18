@@ -119,9 +119,7 @@ function App() {
     }
     console.log(solutionObject)
     setSolution(solutionObject)
-
   }
-
 
 const startScore = () => {
   let starttime = (Date.now());
@@ -326,6 +324,7 @@ window.timertracker = setInterval(function() {
     setSolution({})
     setTimer(0)
     setScore(5000)
+    generateSolution(colors)
 
   }
 
