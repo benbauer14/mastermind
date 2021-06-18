@@ -7,9 +7,10 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   // GET chat messages
-    const user = req.query.user
-    const queryText = `SELECT * FROM chat WHERE "toUser"=$1 OR "fromUser"=$1 ORDER BY "whenSent" DESC;`
-    pool.query(queryText, [user]).then((response) => {
+  console.log('in get')
+    const queryText = `SELECT * FROM highscores`
+    pool.query(queryText).then((response) => {
+        console.log(response)
         res.send(response)
     }).catch((err) => {
         res.sendStatus(500)

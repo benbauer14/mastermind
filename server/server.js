@@ -1,26 +1,18 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-
 const app = express();
+const bodyParser = require('body-parser');
+const highscore = require('./routes/highscores.js')
 
-// Route includes
-const highscore = require('./routes/highscores');
+const port = process.env.PORT || 5000;
 
-// Body parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-/* Routes */
-app.use('/api/highscore', highscore);
-
-// Serve static files
+/** ---------- MIDDLEWARE ---------- **/
+app.use(bodyParser.json()); // needed for angular requests
 app.use(express.static('build'));
 
-// App Set //
-const PORT = process.env.PORT || 5000;
+/** ---------- ROUTES ---------- **/
+app.use('/api/highscore', highscore);
 
-/** Listen * */
-app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
+/** ---------- START SERVER ---------- **/
+app.listen(port, function () {
+    console.log('Listening on port: ', port);
 });

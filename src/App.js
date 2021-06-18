@@ -12,6 +12,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 
 
@@ -222,7 +223,13 @@ window.timertracker = setInterval(function() {
     
   }
 
-  
+  const getHighScores = () => {
+    axios.get('/api/highscore').then((response) =>{
+      console.log(response.data.rows)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
   const cycleColor = (location) => {
     let currentColor = ""
@@ -306,10 +313,6 @@ window.timertracker = setInterval(function() {
     }else{
       setLoc4(newColor)
     }
-  }
-
-  const pauseGame = () => {
-
   }
 
   const resetGame = () => {
@@ -442,7 +445,7 @@ window.timertracker = setInterval(function() {
 
         <p style={{fontSize: '30px'}} className="iconButtons" onClick={() => {resetGame()}}><HiOutlineRefresh /></p>
         <hr></hr>
-        <p className="iconButtons" onClick={handleClickOpen}>High Scores</p>
+        <p className="iconButtons" onClick={handleClickOpen, getHighScores}>High Scores</p>
       </div>
       </div>
       </header>
