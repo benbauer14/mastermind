@@ -12,6 +12,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 
 
@@ -28,7 +29,8 @@ function App() {
   const [timer, setTimer] = useState(0)
   const [score, setScore] = useState(5000)
   const [colors, setColors] = useState(6)
-  const [dialogHeader, setDialogHeader] = useState('High Score')
+  const [dialogHeader, setDialogHeader] = useState('High Scores')
+  const [highscores, setHighscores] = useState([])
  
   const styles = (theme) => ({
     root: {
@@ -223,14 +225,6 @@ window.timertracker = setInterval(function() {
     
   }
 
-  const getHighScores = () => {
-    axios.get('/api/highscore').then((response) =>{
-      console.log(response.data.rows)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
-
   const cycleColor = (location) => {
     let currentColor = ""
     let newColor = ""
@@ -328,24 +322,78 @@ window.timertracker = setInterval(function() {
     setTimer(0)
     setScore(5000)
     generateSolution(colors)
+  }
+
+  const highscoreClick = () => {
+    axios.get('/api/highscore').then((response) =>{
+      setDialogHeader('High Scores')
+      setHighscores(response.data.rows)
+      handleClickOpen()
+    }).catch((err) => {
+      console.log(err)
+    })
 
   }
 
   const dialogBody = () => {
-    if(dialogHeader === "High Score"){
+    if(dialogHeader === "High Scores"){
       return(
         <table>
         <thead>
         <th className="place"></th><th>Name</th><th>Colors</th><th>Time</th><th>Score</th>
         </thead>
-        <tr><td>1</td><td>BGB</td><td>5</td><td>35s</td><td>2653</td></tr>
-        <tr>st</tr>
+        {highscores.map((highscore, index) => {
+          return(<tr><td>{index + 1}</td><td>{highscore.name}</td><td>{highscore.colors}</td><td>{highscore.time}s</td><td>{highscore.score}</td></tr>)
+        })}
       </table>
       )
     }else if(dialogHeader === "Winner!"){
-      return(
-        <Typography>You are a Mastermind! Congrats!</Typography>
-      )
+      let total = (10000 * colors - (timer * 25) + 1*score)
+      if(total > highscores[9].score){
+        alert('ins')
+        return(
+          <>
+          <DialogContent dividers>
+          <Typography>You are a Mastermind! Congrats!</Typography>
+          <br></br>
+          <Typography>Time: {timer}s</Typography>
+          <Typography>Colors: {colors}s</Typography>
+          <Typography>Bonus: {score}</Typography>
+          <br></br>
+          <Typography><center>Score</center></Typography>
+          <Typography>(10000 x Colors) - (25 x Time) + Bonus</Typography>
+          <Typography><center><h2>{total}</h2></center></Typography>
+          <br>s</br>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Initials"
+            type="text"
+            maxlength="3"
+            fullWidth
+          />
+          </DialogContent>
+          
+          </>
+        )
+        }else{
+          return(
+            <>
+            <DialogContent dividers>
+            <Typography>You are a Mastermind! Congrats!</Typography>
+            <br></br>
+            <Typography>Time: {timer}s</Typography>
+            <Typography>Colors: {colors}s</Typography>
+            <Typography>Bonus: {score}</Typography>
+            <br></br>
+            <Typography><center>Score</center></Typography>
+            <Typography>(10000 x Colors) - (25 x Time) + Bonus</Typography>
+            <Typography><center><h2>{total}</h2></center></Typography>
+            </DialogContent>
+            </>
+          )
+        }
     }else if(dialogHeader === "Loser!"){
       return(
         <Typography>You are have much work to do to become the Mastermind! Fail!</Typography>
@@ -364,6 +412,12 @@ window.timertracker = setInterval(function() {
 
   useEffect(() => {
     generateSolution(6)
+    axios.get('/api/highscore').then((response) =>{
+      setHighscores(response.data.rows)
+    }).catch((err) => {
+      console.log(err)
+    })
+
   }, []);
 
   return (
@@ -445,7 +499,7 @@ window.timertracker = setInterval(function() {
 
         <p style={{fontSize: '30px'}} className="iconButtons" onClick={() => {resetGame()}}><HiOutlineRefresh /></p>
         <hr></hr>
-        <p className="iconButtons" onClick={handleClickOpen, getHighScores}>High Scores</p>
+        <p className="iconButtons" onClick={highscoreClick}>High Scores</p>
       </div>
       </div>
       </header>
