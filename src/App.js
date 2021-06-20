@@ -30,6 +30,8 @@ function App() {
   const [score, setScore] = useState(5000)
   const [colors, setColors] = useState(6)
   const [dialogHeader, setDialogHeader] = useState('High Scores')
+  const [totalScore, setTotalScore] = useState(0)
+  const [initials, setInitials] = useState('')
   const [highscores, setHighscores] = useState([])
  
   const styles = (theme) => ({
@@ -335,6 +337,16 @@ window.timertracker = setInterval(function() {
 
   }
 
+  const postHighScore = () =>{
+    axios.post('/api/highscore',{
+      name: initials,
+      score: totalScore,
+      colors: colors,
+      time: timer
+    }).then((response) =>{
+  }
+    )}
+
   const dialogBody = () => {
     if(dialogHeader === "High Scores"){
       return(
@@ -380,7 +392,7 @@ window.timertracker = setInterval(function() {
           </center>
           </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={handleClose} color="primary">
+            <Button autoFocus onClick={postHighScore()} color="primary">
               OK
             </Button>
           </DialogActions>
@@ -527,26 +539,8 @@ window.timertracker = setInterval(function() {
             {dialogHeader}
           </DialogTitle>
           <DialogContent dividers>
-            {/* <Typography gutterBottom>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-              in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-            </Typography>
-            <Typography gutterBottom>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </Typography>
-            <Typography gutterBottom>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </Typography> */}
             {dialogBody()}
           </DialogContent>
-          {/* <DialogActions>
-            <Button autoFocus onClick={handleClose} color="primary">
-              OK
-            </Button>
-          </DialogActions> */}
         </Dialog>
       </div>
     </div>
