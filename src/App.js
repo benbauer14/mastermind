@@ -350,11 +350,12 @@ window.timertracker = setInterval(function() {
     }else if(dialogHeader === "Winner!"){
       let total = (10000 * colors - (timer * 25) + 1*score)
       if(total > highscores[9].score){
-        alert('ins')
         return(
           <>
           <DialogContent dividers>
-          <Typography>You are a Mastermind! Congrats!</Typography>
+          <center>
+          <Typography>You are a Mastermind!</Typography>
+          
           <br></br>
           <Typography>Time: {timer}s</Typography>
           <Typography>Colors: {colors}s</Typography>
@@ -363,17 +364,26 @@ window.timertracker = setInterval(function() {
           <Typography><center>Score</center></Typography>
           <Typography>(10000 x Colors) - (25 x Time) + Bonus</Typography>
           <Typography><center><h2>{total}</h2></center></Typography>
-          <br>s</br>
+          <br></br>
+          <Typography>You have a highscore! Please enter your initials.</Typography>
+          
           <TextField
             autoFocus
             margin="dense"
             id="name"
             label="Initials"
             type="text"
-            maxlength="3"
-            fullWidth
+            size="small"
+            style = {{width: 50}}
+            inputProps={{ maxLength: 3 }}
           />
+          </center>
           </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={handleClose} color="primary">
+              OK
+            </Button>
+          </DialogActions>
           
           </>
         )
@@ -391,6 +401,11 @@ window.timertracker = setInterval(function() {
             <Typography>(10000 x Colors) - (25 x Time) + Bonus</Typography>
             <Typography><center><h2>{total}</h2></center></Typography>
             </DialogContent>
+            <DialogActions>
+            <Button autoFocus onClick={console.log("in")} color="primary">
+              OK
+            </Button>
+          </DialogActions>
             </>
           )
         }
@@ -527,11 +542,11 @@ window.timertracker = setInterval(function() {
             </Typography> */}
             {dialogBody()}
           </DialogContent>
-          <DialogActions>
+          {/* <DialogActions>
             <Button autoFocus onClick={handleClose} color="primary">
               OK
             </Button>
-          </DialogActions>
+          </DialogActions> */}
         </Dialog>
       </div>
     </div>
