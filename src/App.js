@@ -338,14 +338,18 @@ window.timertracker = setInterval(function() {
   }
 
   const postHighScore = () =>{
+    setDialogHeader('')
     axios.post('/api/highscore',{
       name: initials,
       score: totalScore,
       colors: colors,
       time: timer
     }).then((response) =>{
-  }
-    )}
+    console.log(response)
+    }).catch((err) =>{
+    console.log(err)
+  })
+    }
 
   const dialogBody = () => {
     if(dialogHeader === "High Scores"){
@@ -361,6 +365,7 @@ window.timertracker = setInterval(function() {
       )
     }else if(dialogHeader === "Winner!"){
       let total = (10000 * colors - (timer * 25) + 1*score)
+      setTotalScore(total)
       if(total > highscores[9].score){
         return(
           <>
@@ -386,13 +391,14 @@ window.timertracker = setInterval(function() {
             label="Initials"
             type="text"
             size="small"
+            onChange={(e) => setInitials(e.target.value)}
             style = {{width: 50}}
             inputProps={{ maxLength: 3 }}
           />
           </center>
           </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={postHighScore()} color="primary">
+            <Button onClick={postHighScore()} color="primary">
               OK
             </Button>
           </DialogActions>
