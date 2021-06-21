@@ -338,7 +338,7 @@ window.timertracker = setInterval(function() {
   }
 
   const postHighScore = () =>{
-    setDialogHeader('')
+
     axios.post('/api/highscore',{
       name: initials,
       score: totalScore,
@@ -346,6 +346,7 @@ window.timertracker = setInterval(function() {
       time: timer
     }).then((response) =>{
     console.log(response)
+    setDialogHeader('')
     }).catch((err) =>{
     console.log(err)
   })

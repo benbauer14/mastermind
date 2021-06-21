@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 router.post('/', (req,res) => {
     //add new score
     console.log(req.body)
-    const queryText = `INSERT INTO highscore ("name", "colors", "time", "score") VALUES ($1, $2, $3, $4)`
+    const queryText = `INSERT INTO highscores ("name", "colors", "time", "score") VALUES ($1, $2, $3, $4)`
     pool.query(queryText, [req.body.name, req.body.colors, req.body.time, req.body.score]).then((response) =>{
         res.sendStatus(201)
     }).catch((err) =>{
