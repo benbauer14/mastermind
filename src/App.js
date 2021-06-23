@@ -31,7 +31,7 @@ function App() {
   const [colors, setColors] = useState(6)
   const [dialogHeader, setDialogHeader] = useState('High Scores')
   const [totalScore, setTotalScore] = useState(0)
-  const [initials, setInitials] = useState('')
+  const [initials, setInitials] = useState(null)
   const [highscores, setHighscores] = useState([])
  
   const styles = (theme) => ({
@@ -337,16 +337,15 @@ window.timertracker = setInterval(function() {
 
   }
 
-  const postHighScore = () =>{
+  const postHighScore = (total) =>{
 
     axios.post('/api/highscore',{
       name: initials,
-      score: totalScore,
+      score: total,
       colors: colors,
       time: timer
     }).then((response) =>{
     console.log(response)
-    setDialogHeader('')
     }).catch((err) =>{
     console.log(err)
   })
@@ -365,8 +364,8 @@ window.timertracker = setInterval(function() {
       </table>
       )
     }else if(dialogHeader === "Winner!"){
+      console.log('in')
       let total = (10000 * colors - (timer * 25) + 1*score)
-      setTotalScore(total)
       if(total > highscores[9].score){
         return(
           <>
@@ -385,24 +384,22 @@ window.timertracker = setInterval(function() {
           <br></br>
           <Typography>You have a highscore! Please enter your initials.</Typography>
           
-          <TextField
+          <input
             autoFocus
             margin="dense"
             id="name"
             label="Initials"
             type="text"
             size="small"
-            onChange={(e) => setInitials(e.target.value)}
+            onChange={setInitials((e) => e.target.value)}
             style = {{width: 50}}
             inputProps={{ maxLength: 3 }}
           />
           </center>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={postHighScore()} color="primary">
+            <button onClick={postHighScore(total)} color="primary">
               OK
-            </Button>
-          </DialogActions>
+            </button>
           
           </>
         )
@@ -421,7 +418,7 @@ window.timertracker = setInterval(function() {
             <Typography><center><h2>{total}</h2></center></Typography>
             </DialogContent>
             <DialogActions>
-            <Button autoFocus onClick={console.log("in")} color="primary">
+            <Button onClick={console.log("in")} color="primary">
               OK
             </Button>
           </DialogActions>

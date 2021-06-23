@@ -1,70 +1,28 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Neurosity
 
-## Available Scripts
+This application is a web version of the classic board game: Mastermind! When the page loads, the user has the option to change the number of colored pegs in the hidden solution. THe game automatically creates a solution and hides the solution from the player. The player cycles through the possible color combinations and submits a guess. The game responds with small black, white or brown pegs. A black peg indicates the player has a peg of the correct color in the correct location. A white peg indicates the player has a correct color in an incorrect location. A brown peg indicates that there are pegs of the wrong color on the board.
 
-In the project directory, you can run:
+This version of Mastermind! allows for up to 10 different colored pegs to be available. 
 
-### `npm start`
+When the game is started the player can see a Bonus score slowly decrease as time goes on. Additionally, a timer is tracking the amount of time needed to solve the puzzle. After the puzzle is solved, the player is presented with their score and if the score is high enough, the player is prompted for their initials. The score is added to the high score list. The high scores can be viewed by clicking the High Score button. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Heroku Link: https://neurotype.herokuapp.com/
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Admin Login - this screenshot displays all of the options available to an admin. Each role is conditionally rendered to provide access to allowed functions:
 
-### `npm test`
+<img src="public/images/adminlogin.png">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Activities - this screenshot shows navigation page to the Neurosity Survey and EEG repos:
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Javascript
+- HTML
+- CSS
+- Material UI
+- React
+- Express
+- Node
+- Postgres
