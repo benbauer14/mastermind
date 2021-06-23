@@ -385,21 +385,19 @@ window.timertracker = setInterval(function() {
           <Typography>You have a highscore! Please enter your initials.</Typography>
           
           <input
-            autoFocus
-            margin="dense"
             id="name"
             label="Initials"
             type="text"
-            size="small"
-            onChange={setInitials((e) => e.target.value)}
-            style = {{width: 50}}
-            inputProps={{ maxLength: 3 }}
+            value={initials}
+            onChange={(e) => setInitials(e.target.value)}
+            width="30pxs"
+            maxLength="3"
           />
           </center>
           </DialogContent>
-            <button onClick={postHighScore(total)} color="primary">
+            {/* <button onClick={postHighScore(total)} color="primary">
               OK
-            </button>
+            </button> */}
           
           </>
         )

@@ -13,9 +13,6 @@ Admin Login - this screenshot displays all of the options available to an admin.
 
 <img src="public/images/adminlogin.png">
 
-Activities - this screenshot shows navigation page to the Neurosity Survey and EEG repos:
-
-
 ## Technologies
 
 - Javascript
