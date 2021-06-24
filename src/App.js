@@ -390,7 +390,7 @@ window.timertracker = setInterval(function() {
             label="Initials"
             type="text"
             value={initials}
-            onBlur={(e) => setInitials(e.target.value)}
+            // onBlur={(e) => setInitials(e.target.value)}
             width="30pxs"
             maxLength="3"
           />
@@ -417,7 +417,7 @@ window.timertracker = setInterval(function() {
             <Typography><center><h2>{total}</h2></center></Typography>
             </DialogContent>
             <DialogActions>
-            <Button onClick={console.log("in")} color="primary">
+            <Button onClick={() => handleClose()} color="primary">
               OK
             </Button>
           </DialogActions>
