@@ -346,6 +346,7 @@ window.timertracker = setInterval(function() {
       time: timer
     }).then((response) =>{
     console.log(response)
+    handleClose()
     }).catch((err) =>{
     console.log(err)
   })
@@ -389,16 +390,16 @@ window.timertracker = setInterval(function() {
             label="Initials"
             type="text"
             value={initials}
-            onChange={(e) => setInitials(e.target.value)}
+            onBlur={(e) => setInitials(e.target.value)}
             width="30pxs"
             maxLength="3"
           />
           </center>
-          </DialogContent>
-            {/* <button onClick={postHighScore(total)} color="primary">
+
+            <button onClick={postHighScore(total)} color="primary">
               OK
-            </button> */}
-          
+            </button>
+            </DialogContent>          
           </>
         )
         }else{
