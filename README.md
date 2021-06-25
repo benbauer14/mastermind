@@ -7,12 +7,6 @@ This version of Mastermind! allows for up to 10 different colored pegs to be ava
 
 When the game is started the player can see a Bonus score slowly decrease as time goes on. Additionally, a timer is tracking the amount of time needed to solve the puzzle. After the puzzle is solved, the player is presented with their score and if the score is high enough, the player is prompted for their initials. The score is added to the high score list. The high scores can be viewed by clicking the High Score button. 
 
-Heroku Link: https://neurotype.herokuapp.com/
-
-Admin Login - this screenshot displays all of the options available to an admin. Each role is conditionally rendered to provide access to allowed functions:
-
-<img src="public/images/adminlogin.png">
-
 ## Technologies
 
 - Javascript

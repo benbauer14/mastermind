@@ -389,7 +389,6 @@ window.timertracker = setInterval(function() {
             id="name"
             label="Initials"
             type="text"
-            value={initials}
             // onBlur={(e) => setInitials(e.target.value)}
             width="30pxs"
             maxLength="3"
