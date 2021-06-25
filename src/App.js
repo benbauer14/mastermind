@@ -371,7 +371,6 @@ window.timertracker = setInterval(function() {
         return(
           <>
           <DialogContent dividers>
-          <center>
           <Typography>You are a Mastermind!</Typography>
           
           <br></br>
@@ -385,20 +384,20 @@ window.timertracker = setInterval(function() {
           <br></br>
           <Typography>You have a highscore! Please enter your initials.</Typography>
           
-          <input
+          <TextField
+            autoFocus
+            margin="dense"
             id="name"
-            label="Initials"
-            type="text"
-            // onBlur={(e) => setInitials(e.target.value)}
-            width="30pxs"
-            maxLength="3"
+            label="Email Address"
+            type="email"
+            fullWidth
           />
-          </center>
-
-            <button onClick={postHighScore(total)} color="primary">
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={console.log(initials)}>
               OK
-            </button>
-            </DialogContent>          
+            </Button>
+            </DialogActions>          
           </>
         )
         }else{
