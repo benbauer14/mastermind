@@ -30,7 +30,6 @@ function App() {
   const [score, setScore] = useState(5000)
   const [colors, setColors] = useState(6)
   const [dialogHeader, setDialogHeader] = useState('High Scores')
-  const [totalScore, setTotalScore] = useState(0)
   const [initials, setInitials] = useState(null)
   const [highscores, setHighscores] = useState([])
  
@@ -120,6 +119,8 @@ function App() {
           case 10:
             solutionObject['l'+i] = "neonpink"
             break;
+          default:
+            //no default
         }
     }
     console.log(solutionObject)
@@ -245,6 +246,8 @@ window.timertracker = setInterval(function() {
           case 4:
             currentColor = loc4
             break;
+          default:
+            //no default
         }
       }
     }
@@ -388,13 +391,15 @@ window.timertracker = setInterval(function() {
             autoFocus
             margin="dense"
             id="name"
-            label="Email Address"
-            type="email"
+            label="Initials"
+            type="initials"
+            value={initials}
+            onChange={(e) => setInitials(e.target.value)}
             fullWidth
           />
             </DialogContent>
             <DialogActions>
-            <Button onClick={console.log(initials)}>
+            <Button onClick={() => postHighScore(total)}>
               OK
             </Button>
             </DialogActions>          
@@ -454,7 +459,7 @@ window.timertracker = setInterval(function() {
       <div className="main">
         {/* <div></div> */}
         <div className="header">
-        <h1 aria-label="Mastermind!"></h1>
+        <h1 aria-label="Mastermind!"> </h1>
         </div>
         <div></div>
         {/* <div className="scoreshistory">test</div> */}
@@ -512,11 +517,11 @@ window.timertracker = setInterval(function() {
         <p>Bonus: {score}</p>
         <p>Time: {timer}</p>
         <span style={{display: 'inline-flex'}}>
-        <p>Colors:</p><select onChange={(event) => setColorsFunc((event.target.value))}>
+        <p>Colors:</p><select value={6} onChange={(event) => setColorsFunc((event.target.value))}>
           <option value='3'>3</option>
           <option value='4'>4</option>
           <option value='5'>5</option>
-          <option value='6' defaultValue selected>6</option>
+          <option value='6'>6</option>
           <option value='7'>7</option>
           <option value='8'>8</option>
           <option value='9'>9</option>
