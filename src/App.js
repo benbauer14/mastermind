@@ -369,7 +369,7 @@ window.timertracker = setInterval(function() {
       )
     }else if(dialogHeader === "Winner!"){
       console.log('in')
-      let total = (10000 * colors - (timer * 25) + 1*score)
+      let total = (10000 * colors - (timer * 250) + 1*score)
       if(total > highscores[9].score){
         return(
           <>
@@ -382,7 +382,7 @@ window.timertracker = setInterval(function() {
           <Typography>Bonus: {score}</Typography>
           <br></br>
           <Typography><center>Score</center></Typography>
-          <Typography>(10000 x Colors) - (25 x Time) + Bonus</Typography>
+          <Typography>(10000 x Colors) - (250 x Time) + Bonus</Typography>
           <Typography><center><h2>{total}</h2></center></Typography>
           <br></br>
           <Typography>You have a highscore! Please enter your initials.</Typography>
@@ -395,6 +395,7 @@ window.timertracker = setInterval(function() {
             type="initials"
             value={initials}
             onChange={(e) => setInitials(e.target.value)}
+            inputProps={{maxLength: 3, style: { textTransform: "uppercase" } }}
             fullWidth
           />
             </DialogContent>
@@ -517,7 +518,7 @@ window.timertracker = setInterval(function() {
         <p>Bonus: {score}</p>
         <p>Time: {timer}</p>
         <span style={{display: 'inline-flex'}}>
-        <p>Colors:</p><select value={6} onChange={(event) => setColorsFunc((event.target.value))}>
+        <p>Colors:</p><select value={colors} onChange={(event) => setColorsFunc((event.target.value))}>
           <option value='3'>3</option>
           <option value='4'>4</option>
           <option value='5'>5</option>
