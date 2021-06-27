@@ -175,6 +175,7 @@ window.timertracker = setInterval(function() {
 
      //check if gameover
      if(gameover === true){
+       //ask player if they want to reset the game
       swal({
         title: "Game Over",
         text: "The game is over. Would you like to reset the game?",
