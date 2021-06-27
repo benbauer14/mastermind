@@ -349,6 +349,7 @@ window.timertracker = setInterval(function() {
       time: timer
     }).then((response) =>{
     console.log(response)
+    setDialogHeader(null)
     handleClose()
     }).catch((err) =>{
     console.log(err)
@@ -368,7 +369,6 @@ window.timertracker = setInterval(function() {
       </table>
       )
     }else if(dialogHeader === "Winner!"){
-      console.log('in')
       let total = (10000 * colors - (timer * 250) + 1*score)
       if(total > highscores[9].score){
         return(
