@@ -32,6 +32,7 @@ function App() {
   const [dialogHeader, setDialogHeader] = useState('High Scores')
   const [initials, setInitials] = useState(null)
   const [highscores, setHighscores] = useState([])
+  const [gameover, setGameOver] = useState(true)
  
   const styles = (theme) => ({
     root: {
@@ -74,10 +75,12 @@ function App() {
   }))(MuiDialogActions);
   
     const [open, setOpen] = React.useState(false);
-  
+    //opens dialot
     const handleClickOpen = () => {
       setOpen(true);
     };
+
+    //closes dialog
     const handleClose = () => {
       setOpen(false);
     };
@@ -123,11 +126,13 @@ function App() {
             //no default
         }
     }
-    console.log(solutionObject)
     setSolution(solutionObject)
   }
 
 const startScore = () => {
+  //start time is stored in variable and the elapsedTime is equal to the difference between starttime and when interval ticks.
+  //the score is calculated using these values
+
   let starttime = (Date.now());
 
   window.interval = setInterval(function() {
@@ -149,6 +154,7 @@ window.timertracker = setInterval(function() {
 }
 
   const setColorsFunc = (numofcolors) => {
+    //sets colors selected by dropdown and generates a new solution based on the new number of colors
     setColors(numofcolors);
     console.log(colors)
     generateSolution(numofcolors)
@@ -158,19 +164,46 @@ window.timertracker = setInterval(function() {
 
         //starts bonus counter and generates solution if guess is 0
     if(guessCount === 0){
+      if(guess.l1 === "grey" || guess.l2 === "grey" || guess.l3 === "grey" || guess.l4 === "grey"){
+        swal("Please enter a valid guess!", "Click the circles on the gameboard to change the color.");
+        return null
+      }else{
       startScore()
+      setGameOver(false)
+      }
+     }else{
+
+     //check if gameover
+     if(gameover === true){
+      swal({
+        title: "Game Over",
+        text: "The game is over. Would you like to reset the game?",
+        icon: "warning",
+        buttons: [
+          'Yes', 'No'],
+        dangerMode: true,
+      }).then(function(isConfirm){
+        console.log(isConfirm)
+        if(isConfirm === null){
+          resetGame()
+        }else{
+          return null
+        }
+
+      });
+      return null
      }
+    }
 
       let guessArray = Object.values(guess)
       let solutionArray = Object.values(solution)
       let whitepegs = 0
   
-  
+     //ensures a valid guess, grey is the color of the pegs on load and is not a valid color to guess
       if(guess.l1 === "grey" || guess.l2 === "grey" || guess.l3 === "grey" || guess.l4 === "grey"){
         swal("Please enter a valid guess!", "Click the circles on the gameboard to change the color.");
         return null
       }
-
       //combine values into a single array with duplicates
       for(let i=0; i < solutionArray.length; i++){
         for (let j=guessArray.length; j> -1;j--){
@@ -182,8 +215,6 @@ window.timertracker = setInterval(function() {
         }
       }
       //determine black pegs
-  
-  
       let blackpegs = 0
       if(solution.l1 === guess.l1){
         blackpegs += 1
@@ -206,31 +237,42 @@ window.timertracker = setInterval(function() {
       guesswithright['whitepeg'] = whitepegs - blackpegs
   
       if(blackpegs === 4){
+        //set dialog header to conditionally load win
         setDialogHeader("Winner!")
+        //set game over
+        setGameOver(true)
+        //open dialog
         handleClickOpen()
+        //add guess to the guess array
         history.push(guesswithright)
         setGuessHistory(history)
+        //stop timer and bonus score
         clearInterval(window.timertracker)
         clearInterval(window.interval)
-        console.log(guessHistory)
       }else if(guessCount >= 9){
+        //lost, set dialog header to conditionally load loss
         setDialogHeader("Loser!")
+        //open dialog
         handleClickOpen()
+        //set game over
+        setGameOver(true)
+        //add guess to guess array
         history.push(guesswithright)
         clearInterval(window.timertracker)
         clearInterval(window.interval)
-        console.log(guessHistory)
       }else{
+        //add guess to guess array and await next guess
       history.push(guesswithright)
       setGuessHistory(history)
-      console.log(guessHistory)
       }
     
   }
 
   const cycleColor = (location) => {
+    //generic code to cycle colors based on the location sent
     let currentColor = ""
     let newColor = ""
+    //find the current color from the location provided
     for(let i = 1; i < 5; i++){
       if(i === location){
         switch(i){
@@ -251,6 +293,7 @@ window.timertracker = setInterval(function() {
         }
       }
     }
+    //based on current color, cycle to next color
     if(currentColor === "grey"){
       newColor = "red"
     }else if(currentColor === "red"){
@@ -259,6 +302,7 @@ window.timertracker = setInterval(function() {
       newColor = "green"
     }else if(currentColor === "green"){
       if(colors >=4){
+        //evaluate next color based on number of colors selected by the player prior to load
         newColor = "yellow"
       }else{
         newColor = "red"
@@ -302,7 +346,7 @@ window.timertracker = setInterval(function() {
     }else if( currentColor === "magenta"){
         newColor = "red"
     }
-    
+    //set next color based on location
     if(location === 1){
       setLoc1(newColor)
     }else if(location === 2){
@@ -315,6 +359,7 @@ window.timertracker = setInterval(function() {
   }
 
   const resetGame = () => {
+    //resets the game, stops the timers, clears guess history, sets pegs to default colors, clears solution, generates a new solution
     clearInterval(window.interval)
     clearInterval(window.timertracker)
     setGuessHistory([])
@@ -327,12 +372,17 @@ window.timertracker = setInterval(function() {
     setTimer(0)
     setScore(5000)
     generateSolution(colors)
+    setGameOver(true)
   }
 
   const highscoreClick = () => {
+    //loads high score
     axios.get('/api/highscore').then((response) =>{
+      //sets dialog header to conditionally load correctly
       setDialogHeader('High Scores')
+      //sets high scores based on data received from the database
       setHighscores(response.data.rows)
+      //opens dialog
       handleClickOpen()
     }).catch((err) => {
       console.log(err)
@@ -341,7 +391,7 @@ window.timertracker = setInterval(function() {
   }
 
   const postHighScore = (total) =>{
-
+    //posts a high score if a player's score is high enough
     axios.post('/api/highscore',{
       name: initials,
       score: total,
@@ -349,7 +399,9 @@ window.timertracker = setInterval(function() {
       time: timer
     }).then((response) =>{
     console.log(response)
+    //clears the dialog header so users cannot enter score twice
     setDialogHeader(null)
+    //closes dialog
     handleClose()
     }).catch((err) =>{
     console.log(err)
@@ -445,7 +497,9 @@ window.timertracker = setInterval(function() {
   }
 
   useEffect(() => {
+    //generates solution on load
     generateSolution(6)
+    //gets high scores and stores them on load
     axios.get('/api/highscore').then((response) =>{
       setHighscores(response.data.rows)
     }).catch((err) => {
@@ -538,9 +592,6 @@ window.timertracker = setInterval(function() {
       </div>
       </header>
       <div>
-        {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Open dialog
-        </Button> */}
         <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
           <DialogTitle id="customized-dialog-title" onClose={handleClose}>
             {dialogHeader}
